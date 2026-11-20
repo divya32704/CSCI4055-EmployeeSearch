@@ -26,7 +26,9 @@ import javax.swing.JTextArea;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class EmployeeSearchFrame extends JFrame {
 
@@ -71,9 +73,23 @@ public class EmployeeSearchFrame extends JFrame {
 
 	/** Fill: reset the Department and Project lists from the entered database. */
 	private void fillLists() {
+		String dbName = txtDatabase.getText().trim();
+
 		department.clear();
 		project.clear();
 		textAreaEmployee.setText("");
+
+		try (Connection conn = getConnection(dbName);
+				Statement stmt = conn.createStatement()) {
+
+			try (ResultSet rs = stmt.executeQuery("SELECT Dname FROM DEPARTMENT ORDER BY Dname")) {
+				while (rs.next()) {
+					department.addElement(rs.getString("Dname"));
+				}
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}
 	}
 
 	/**
