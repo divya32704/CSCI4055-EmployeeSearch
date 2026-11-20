@@ -136,11 +136,11 @@ public class EmployeeSearchFrame extends JFrame {
 		chckbxNotProject.setBounds(270, 133, 59, 23);
 		contentPane.add(chckbxNotProject);
 		
-		lstDepartment = new JList<String>(new DefaultListModel<String>());
-		lstDepartment.setBounds(36, 84, 172, 40);
-		contentPane.add(lstDepartment);
+		lstDepartment = new JList<String>(department);
 		lstDepartment.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lstDepartment.setModel(department);
+		JScrollPane scrollDepartment = new JScrollPane(lstDepartment);
+		scrollDepartment.setBounds(36, 84, 172, 40);
+		contentPane.add(scrollDepartment);
 		
 		JLabel lblEmployee = new JLabel("Employee");
 		lblEmployee.setFont(new Font("Times New Roman", Font.BOLD, 12));
