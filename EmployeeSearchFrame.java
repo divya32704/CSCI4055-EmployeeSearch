@@ -101,6 +101,30 @@ public class EmployeeSearchFrame extends JFrame {
 		}
 	}
 
+	private void searchEmployees() {
+		if (filledDatabase == null) {
+			JOptionPane.showMessageDialog(this, "Fill a database before searching.", "Database Required",
+					JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+
+		StringBuilder employees = new StringBuilder();
+		String sql = "SELECT Fname, Lname FROM EMPLOYEE ORDER BY Lname, Fname";
+		try (Connection conn = getConnection(filledDatabase);
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(sql)) {
+			while (rs.next()) {
+				employees.append(rs.getString("Fname"))
+						.append(' ')
+						.append(rs.getString("Lname"))
+						.append('\n');
+			}
+			textAreaEmployee.setText(employees.toString());
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(this, ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
 	/**
 	 * Create the frame.
 	 */
@@ -175,7 +199,7 @@ public class EmployeeSearchFrame extends JFrame {
 		JButton btnSearch = new JButton("Search");
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				textAreaEmployee.setText("John Smith\nFranklin Wong");
+				searchEmployees();
 			}
 		});
 		btnSearch.setBounds(80, 276, 89, 23);
