@@ -1,7 +1,9 @@
 /**
- * Author: Lon Smith, Ph.D.
- * Description: This is the framework for the database program. Additional requirements and functionality
- *    are to be built by you and your group.
+ * Author: Lon Smith, Ph.D. (template)
+ * Completed by: Divya Shah, Daniel Darmey
+ * Description: Loads departments and projects from a COMPANY-schema database and
+ *    searches for employees in / not in the selected departments and/or projects.
+ * Tools used: Eclipse IDE + WindowBuilder (GUI), MySQL Connector/J (JDBC driver), MySQL on AWS RDS.
  */
 
 import java.awt.EventQueue;
@@ -24,6 +26,7 @@ import javax.swing.JTextArea;
 public class EmployeeSearchFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+
 	private JPanel contentPane;
 	private JTextField txtDatabase;
 	private JList<String> lstDepartment;
