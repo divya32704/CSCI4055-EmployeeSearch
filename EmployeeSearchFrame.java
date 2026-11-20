@@ -122,11 +122,11 @@ public class EmployeeSearchFrame extends JFrame {
 		lblProject.setBounds(255, 63, 47, 14);
 		contentPane.add(lblProject);
 		
-		lstProject = new JList<String>(new DefaultListModel<String>());
+		lstProject = new JList<String>(project);
 		lstProject.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lstProject.setModel(project);
-		lstProject.setBounds(225, 84, 150, 42);
-		contentPane.add(lstProject);
+		JScrollPane scrollProject = new JScrollPane(lstProject);
+		scrollProject.setBounds(225, 84, 150, 42);
+		contentPane.add(scrollProject);
 		
 		JCheckBox chckbxNotDept = new JCheckBox("Not");
 		chckbxNotDept.setBounds(71, 133, 59, 23);
