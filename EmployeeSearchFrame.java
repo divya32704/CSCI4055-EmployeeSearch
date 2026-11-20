@@ -23,9 +23,19 @@ import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 public class EmployeeSearchFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+
+	// Connection settings: put your own login here to test, but DON'T commit your real password
+	private static final String DB_HOST = "ulm-csci-lonsmith2.ccr8ibhqw8qf.us-east-2.rds.amazonaws.com";
+	private static final String DB_PORT = "3306";
+	private static final String DB_USER = "your_username";
+	private static final String DB_PASSWORD = "your_password";
 
 	private JPanel contentPane;
 	private JTextField txtDatabase;
