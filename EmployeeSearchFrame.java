@@ -60,6 +60,12 @@ public class EmployeeSearchFrame extends JFrame {
 		});
 	}
 
+	/** Opens a connection to the given database name. */
+	private Connection getConnection(String dbName) throws SQLException {
+		String url = "jdbc:mysql://" + DB_HOST + ":" + DB_PORT + "/" + dbName;
+		return DriverManager.getConnection(url, DB_USER, DB_PASSWORD);
+	}
+
 	/**
 	 * Create the frame.
 	 */
