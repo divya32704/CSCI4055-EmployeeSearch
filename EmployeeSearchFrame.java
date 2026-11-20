@@ -27,9 +27,11 @@ import javax.swing.JTextArea;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 public class EmployeeSearchFrame extends JFrame {
 
@@ -108,16 +110,33 @@ public class EmployeeSearchFrame extends JFrame {
 			return;
 		}
 
+		List<String> selectedDepartments = lstDepartment.getSelectedValuesList();
+		StringBuilder sql = new StringBuilder("SELECT E.Fname, E.Lname FROM EMPLOYEE E");
+		if (!selectedDepartments.isEmpty()) {
+			sql.append(" WHERE EXISTS (SELECT 1 FROM DEPARTMENT D WHERE D.Dnumber = E.Dno AND D.Dname IN (");
+			for (int i = 0; i < selectedDepartments.size(); i++) {
+				if (i > 0) {
+					sql.append(", ");
+				}
+				sql.append("?");
+			}
+			sql.append("))");
+		}
+		sql.append(" ORDER BY E.Lname, E.Fname");
+
 		StringBuilder employees = new StringBuilder();
-		String sql = "SELECT Fname, Lname FROM EMPLOYEE ORDER BY Lname, Fname";
 		try (Connection conn = getConnection(filledDatabase);
-				Statement stmt = conn.createStatement();
-				ResultSet rs = stmt.executeQuery(sql)) {
-			while (rs.next()) {
-				employees.append(rs.getString("Fname"))
-						.append(' ')
-						.append(rs.getString("Lname"))
-						.append('\n');
+				PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
+			for (int i = 0; i < selectedDepartments.size(); i++) {
+				stmt.setString(i + 1, selectedDepartments.get(i));
+			}
+			try (ResultSet rs = stmt.executeQuery()) {
+				while (rs.next()) {
+					employees.append(rs.getString("Fname"))
+							.append(' ')
+							.append(rs.getString("Lname"))
+							.append('\n');
+				}
 			}
 			textAreaEmployee.setText(employees.toString());
 		} catch (SQLException ex) {
