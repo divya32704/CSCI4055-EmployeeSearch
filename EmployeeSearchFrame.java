@@ -126,8 +126,9 @@ public class EmployeeSearchFrame extends JFrame {
 			sql.append("))");
 		}
 		if (!selectedProjects.isEmpty()) {
+			String projectMatch = chckbxNotProject.isSelected() ? "NOT EXISTS" : "EXISTS";
 			sql.append(selectedDepartments.isEmpty() ? " WHERE " : " AND ");
-			sql.append("EXISTS (SELECT 1 FROM WORKS_ON W JOIN PROJECT P ON P.Pnumber = W.Pno ")
+			sql.append(projectMatch).append(" (SELECT 1 FROM WORKS_ON W JOIN PROJECT P ON P.Pnumber = W.Pno ")
 					.append("WHERE W.Essn = E.Ssn AND P.Pname IN (");
 			for (int i = 0; i < selectedProjects.size(); i++) {
 				if (i > 0) {
