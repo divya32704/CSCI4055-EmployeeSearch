@@ -184,6 +184,8 @@ public class EmployeeSearchFrame extends JFrame {
 				textAreaEmployee.setText("");
 				lstDepartment.clearSelection();
 				lstProject.clearSelection();
+				chckbxNotDept.setSelected(false);
+				chckbxNotProject.setSelected(false);
 			}
 		});
 		btnClear.setBounds(236, 276, 89, 23);
