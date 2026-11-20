@@ -87,6 +87,11 @@ public class EmployeeSearchFrame extends JFrame {
 					department.addElement(rs.getString("Dname"));
 				}
 			}
+			try (ResultSet rs = stmt.executeQuery("SELECT Pname FROM PROJECT ORDER BY Pname")) {
+				while (rs.next()) {
+					project.addElement(rs.getString("Pname"));
+				}
+			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}
