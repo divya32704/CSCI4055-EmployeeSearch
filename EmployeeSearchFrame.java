@@ -45,6 +45,8 @@ public class EmployeeSearchFrame extends JFrame {
 	private JList<String> lstProject;
 	private DefaultListModel<String> project = new DefaultListModel<String>();
 	private JTextArea textAreaEmployee;
+	private JCheckBox chckbxNotDept;
+	private JCheckBox chckbxNotProject;
 	/**
 	 * Launch the application.
 	 */
@@ -130,11 +132,11 @@ public class EmployeeSearchFrame extends JFrame {
 		scrollProject.setBounds(225, 84, 150, 42);
 		contentPane.add(scrollProject);
 		
-		JCheckBox chckbxNotDept = new JCheckBox("Not");
+		chckbxNotDept = new JCheckBox("Not");
 		chckbxNotDept.setBounds(71, 133, 59, 23);
 		contentPane.add(chckbxNotDept);
 		
-		JCheckBox chckbxNotProject = new JCheckBox("Not");
+		chckbxNotProject = new JCheckBox("Not");
 		chckbxNotProject.setBounds(270, 133, 59, 23);
 		contentPane.add(chckbxNotProject);
 		
