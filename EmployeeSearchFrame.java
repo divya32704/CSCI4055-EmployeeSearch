@@ -111,6 +111,7 @@ public class EmployeeSearchFrame extends JFrame {
 		}
 
 		List<String> selectedDepartments = lstDepartment.getSelectedValuesList();
+		List<String> selectedProjects = lstProject.getSelectedValuesList();
 		StringBuilder sql = new StringBuilder("SELECT E.Fname, E.Lname FROM EMPLOYEE E");
 		if (!selectedDepartments.isEmpty()) {
 			String departmentMatch = chckbxNotDept.isSelected() ? "NOT EXISTS" : "EXISTS";
@@ -124,13 +125,29 @@ public class EmployeeSearchFrame extends JFrame {
 			}
 			sql.append("))");
 		}
+		if (!selectedProjects.isEmpty()) {
+			sql.append(selectedDepartments.isEmpty() ? " WHERE " : " AND ");
+			sql.append("EXISTS (SELECT 1 FROM WORKS_ON W JOIN PROJECT P ON P.Pnumber = W.Pno ")
+					.append("WHERE W.Essn = E.Ssn AND P.Pname IN (");
+			for (int i = 0; i < selectedProjects.size(); i++) {
+				if (i > 0) {
+					sql.append(", ");
+				}
+				sql.append("?");
+			}
+			sql.append("))");
+		}
 		sql.append(" ORDER BY E.Lname, E.Fname");
 
 		StringBuilder employees = new StringBuilder();
 		try (Connection conn = getConnection(filledDatabase);
 				PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
+			int parameterIndex = 1;
 			for (int i = 0; i < selectedDepartments.size(); i++) {
-				stmt.setString(i + 1, selectedDepartments.get(i));
+				stmt.setString(parameterIndex++, selectedDepartments.get(i));
+			}
+			for (String selectedProject : selectedProjects) {
+				stmt.setString(parameterIndex++, selectedProject);
 			}
 			try (ResultSet rs = stmt.executeQuery()) {
 				while (rs.next()) {
