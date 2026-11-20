@@ -113,7 +113,9 @@ public class EmployeeSearchFrame extends JFrame {
 		List<String> selectedDepartments = lstDepartment.getSelectedValuesList();
 		StringBuilder sql = new StringBuilder("SELECT E.Fname, E.Lname FROM EMPLOYEE E");
 		if (!selectedDepartments.isEmpty()) {
-			sql.append(" WHERE EXISTS (SELECT 1 FROM DEPARTMENT D WHERE D.Dnumber = E.Dno AND D.Dname IN (");
+			String departmentMatch = chckbxNotDept.isSelected() ? "NOT EXISTS" : "EXISTS";
+			sql.append(" WHERE ").append(departmentMatch)
+					.append(" (SELECT 1 FROM DEPARTMENT D WHERE D.Dnumber = E.Dno AND D.Dname IN (");
 			for (int i = 0; i < selectedDepartments.size(); i++) {
 				if (i > 0) {
 					sql.append(", ");
