@@ -43,6 +43,7 @@ public class EmployeeSearchFrame extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtDatabase;
+	private String filledDatabase;
 	private JList<String> lstDepartment;
 	private DefaultListModel<String> department = new DefaultListModel<String>();
 	private JList<String> lstProject;
@@ -76,6 +77,7 @@ public class EmployeeSearchFrame extends JFrame {
 	private void fillLists() {
 		String dbName = txtDatabase.getText().trim();
 
+		filledDatabase = null;
 		department.clear();
 		project.clear();
 		textAreaEmployee.setText("");
@@ -93,6 +95,7 @@ public class EmployeeSearchFrame extends JFrame {
 					project.addElement(rs.getString("Pname"));
 				}
 			}
+			filledDatabase = dbName;
 		} catch (SQLException ex) {
 			JOptionPane.showMessageDialog(this, ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
 		}
