@@ -18,6 +18,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JCheckBox;
+import javax.swing.ListSelectionModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
@@ -124,6 +125,7 @@ public class EmployeeSearchFrame extends JFrame {
 		
 		lstProject = new JList<String>(project);
 		lstProject.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lstProject.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		JScrollPane scrollProject = new JScrollPane(lstProject);
 		scrollProject.setBounds(225, 84, 150, 42);
 		contentPane.add(scrollProject);
@@ -138,6 +140,7 @@ public class EmployeeSearchFrame extends JFrame {
 		
 		lstDepartment = new JList<String>(department);
 		lstDepartment.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lstDepartment.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		JScrollPane scrollDepartment = new JScrollPane(lstDepartment);
 		scrollDepartment.setBounds(36, 84, 172, 40);
 		contentPane.add(scrollDepartment);
@@ -166,7 +169,9 @@ public class EmployeeSearchFrame extends JFrame {
 		contentPane.add(btnClear);
 		
 		textAreaEmployee = new JTextArea();
-		textAreaEmployee.setBounds(36, 197, 339, 68);
-		contentPane.add(textAreaEmployee);
+		textAreaEmployee.setEditable(false);
+		JScrollPane scrollEmployee = new JScrollPane(textAreaEmployee);
+		scrollEmployee.setBounds(36, 197, 339, 68);
+		contentPane.add(scrollEmployee);
 	}
 }
