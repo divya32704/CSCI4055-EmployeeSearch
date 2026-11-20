@@ -69,6 +69,13 @@ public class EmployeeSearchFrame extends JFrame {
 		return DriverManager.getConnection(url, DB_USER, DB_PASSWORD);
 	}
 
+	/** Fill: reset the Department and Project lists from the entered database. */
+	private void fillLists() {
+		department.clear();
+		project.clear();
+		textAreaEmployee.setText("");
+	}
+
 	/**
 	 * Create the frame.
 	 */
@@ -93,21 +100,9 @@ public class EmployeeSearchFrame extends JFrame {
 		txtDatabase.setColumns(10);
 		
 		JButton btnDBFill = new JButton("Fill");
-		/**
-		 * The btnDBFill should fill the department and project JList with the 
-		 * departments and projects from your entered database name.
-		 */
 		btnDBFill.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String[] dept = {"Headquarters", "Reorganization"};	
-				for(int i = 0; i < dept.length; i++) {
-					department.addElement(dept[i]);
-				}
-				String[] prj = {"ProdoctX", "ProductY", "ProductZ"};
-				for(int j = 0; j < prj.length; j++) {
-					project.addElement(prj[j]);
-				}
-				
+				fillLists();
 			}
 		});
 		
