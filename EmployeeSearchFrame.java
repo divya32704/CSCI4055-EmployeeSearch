@@ -19,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JCheckBox;
 import javax.swing.ListSelectionModel;
+import javax.swing.JOptionPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
@@ -93,7 +94,7 @@ public class EmployeeSearchFrame extends JFrame {
 				}
 			}
 		} catch (SQLException ex) {
-			ex.printStackTrace();
+			JOptionPane.showMessageDialog(this, ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
