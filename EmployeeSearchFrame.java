@@ -99,10 +99,9 @@ public class EmployeeSearchFrame extends JFrame {
 			}
 			filledDatabase = dbName;
 		} catch (SQLException ex) {
-			JOptionPane.showMessageDialog(this, ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "The database \"" + dbName + "\" could not be opened.", "Database Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
-
 	private void searchEmployees() {
 		if (filledDatabase == null) {
 			JOptionPane.showMessageDialog(this, "Fill a database before searching.", "Database Required",
